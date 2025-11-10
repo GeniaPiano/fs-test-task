@@ -1,2 +1,34 @@
-version: '3'
-# your services for the task
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: products-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build: ./be
+    container_name: products-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/products
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+    command: sh -c "sleep 10 && yarn seed && yarn start"
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
