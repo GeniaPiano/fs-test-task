@@ -1,37 +1,58 @@
-import { mockData } from '../../mock/data';
+import { useEffect, useState } from 'react';
 import { ProductCard } from '../cards/Product';
 import { Button } from '../button';
 import { useFilterContext } from '../../contexts/filters';
 import { ChevronDown } from 'react-feather';
+import { fetchProducts } from '../../services/api';
+import { IProduct } from '../../interfaces/product';
 
 export const Products = () => {
   const { filters, query } = useFilterContext();
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const searchByCode = mockData.filter((product) => {
-    return product.code.toLowerCase().includes(query.toLowerCase());
-  });
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchProducts({
+          search: query,
+          capacity: filters.capacity === '' ? undefined : filters.capacity,
+          energyClass: filters.energyClass,
+          feature: filters.feature,
+          sort: filters.sort,
+        });
+        setProducts(data);
+        setError(null);
+      } catch (err) {
+        setError('Nie udało się załadować produktów');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const filteredProducts = searchByCode.filter((product) => {
-    if (filters.capacity && product.capacity !== filters.capacity) {
-      return false;
-    }
-    if (filters.energyClass && product.energyClass !== filters.energyClass) {
-      return false;
-    }
-    return !(filters.feature && !product.features.includes(filters.feature));
-  });
+    loadProducts();
+  }, [filters, query]);
 
-  const sortedProducts = filteredProducts.sort((a, b) => {
-    if (filters.sort === 'price') {
-      return a.price.value - b.price.value;
-    }
-    if (filters.sort === 'capacity') {
-      return a.capacity - b.capacity;
-    }
-    return 0;
-  });
+  if (loading) {
+    return (
+      <div>
+        <p className="text-center text-gray-500 text-xl mt-4">Ładowanie...</p>
+      </div>
+    );
+  }
 
-  if (filteredProducts.length === 0) {
+  if (error) {
+    return (
+      <div>
+        <p className="text-center text-red-500 text-xl mt-4">{error}</p>
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
     return (
       <div>
         <p className="text-center text-gray-500 text-xl mt-4">
@@ -44,7 +65,7 @@ export const Products = () => {
   return (
     <>
       <div className="grid grid-cols-3 gap-x-4 gap-y-5">
-        {sortedProducts.map((product) => (
+        {products.map((product) => (
           <ProductCard key={product.code} {...product} />
         ))}
       </div>
