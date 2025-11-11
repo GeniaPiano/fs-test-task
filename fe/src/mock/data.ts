@@ -1,4 +1,4 @@
-import { IProduct } from '../interfaces/product';
+import { IProduct } from '@shared/types/Product';
 
 export const mockData: IProduct[] = [
   {

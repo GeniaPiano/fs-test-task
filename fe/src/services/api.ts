@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IProduct, Capacity } from '../interfaces/product';
+import { IProduct, Capacity } from '@shared/types/Product';
 
 const API_URL = 'http://localhost:5000/api';
 

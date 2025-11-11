@@ -4,7 +4,7 @@ import { Button } from '../button';
 import { useFilterContext } from '../../contexts/filters';
 import { ChevronDown } from 'react-feather';
 import { fetchProducts } from '../../services/api';
-import { IProduct } from '../../interfaces/product';
+import { IProduct } from '@shared/types/Product';
 
 export const Products = () => {
   const { filters, query } = useFilterContext();

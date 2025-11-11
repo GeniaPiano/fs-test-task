@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Product from '../models/Product';
 import { FilterQuery } from 'mongoose';
-import { IProduct } from '../types/Product';
+import { IProduct } from '@shared/types/Product';
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -1,4 +1,4 @@
-import { Capacity, EnergyClass, Features } from '../interfaces/product';
+import { Capacity, EnergyClass, Features } from '@shared/types/Product';
 import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
 
 type Sort = 'price' | 'capacity';

@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
-import { IProduct } from '../interfaces/product';
+import { IProduct } from '@shared/types/Product';
 
 interface CartContextType {
   items: IProduct[];

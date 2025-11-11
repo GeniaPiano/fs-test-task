@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { IProduct } from '../types/Product';
+import { IProduct } from '@shared/types/Product';
 
 export interface IProductDocument extends IProduct, Document {}
 

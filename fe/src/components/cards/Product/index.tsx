@@ -1,5 +1,5 @@
 import { Button } from '../../button';
-import { IProduct } from '../../../interfaces/product';
+import { IProduct } from '@shared/types/Product';
 import { parseCurrency } from '../../../utils/parseCurrency';
 import { useCartContext } from '../../../contexts/cart';
 import { EnergyBadge } from '../../badge/Energy';

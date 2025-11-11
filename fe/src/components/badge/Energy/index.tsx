@@ -1,4 +1,4 @@
-import { EnergyClass } from '../../../interfaces/product';
+import { EnergyClass } from '@shared/types/Product';
 
 interface EnergyBadgeProps {
   energyClass: EnergyClass;
