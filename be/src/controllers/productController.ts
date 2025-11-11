@@ -1,14 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import Product from '../models/Product';
+import { FilterQuery } from 'mongoose';
+import { IProduct } from '../types/Product';
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { search, capacity, energyClass, feature, sort } = req.query;
-
-    let query: any = {};
+    
+    const query: FilterQuery<IProduct> = {};
 
     if (search) {
-      query.code = { $regex: search, $options: 'i' };
+      query.$or = [
+        { code: { $regex: search, $options: 'i' } },
+        { name: { $regex: search, $options: 'i' } },
+        { features: { $regex: search, $options: 'i' } },
+      ];
     }
 
     if (capacity) {
