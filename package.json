@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "description": "Full Stack Test Task",
-  "main": "index.js",
   "scripts": {
-    "dev:fe": "cd fe && npm run dev",
-    "dev:be": "docker compose up"
+    "dev:fe": "cd fe && yarn dev",
+    "dev:be": "cd be && yarn dev",
+    "seed": "cd be && yarn seed",
+    "docker:up": "docker compose -f docker-compose.dev.yml up",
+    "docker:down": "docker compose -f docker-compose.dev.yml down"
   },
   "author": "Illia S",
   "license": "ISC",

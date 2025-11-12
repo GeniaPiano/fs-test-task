@@ -15,8 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src","paths": {
-      "@shared/*": ["../../shared/*"]
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../shared/*"]
     },
     "types": ["vite-plugin-svgr/client", "jest"]
   },
